@@ -7,7 +7,6 @@ export async function getCabins() {
 		console.error(error);
 		throw new Error('Cabins could nor be loaded');
 	}
-
 	return data;
 }
 const data = await getCabins();

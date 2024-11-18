@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createEditCabin } from "../../services/apiCabins";
-import PropTypes from "prop-types";
+import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -10,19 +9,15 @@ import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 
-function CreateCabinForm({cabinToEdit = {}}) {
-  const {id: editId, ...editValues} = cabinToEdit;
-  const isEditSession = Boolean(editId)
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
-    defaultValues: isEditSession ? editValues : {},
-  });
+function CreateCabinForm() {
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
   const { errors } = formState;
   console.log(errors);
 
   const queryClient = useQueryClient();
 
   const { mutate, isLoading: isCreating } = useMutation({
-    mutationFn: createEditCabin,
+    mutationFn: createCabin,
     onSuccess: () => {
       toast.success("New cabin successfully created");
       queryClient.invalidateQueries({
@@ -108,9 +103,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
       </FormRow>
 
       <FormRow label="Cabin Photo">
-        <FileInput id="image" accept="image/*" {...register("image", {
-            required: isEditSession ? false : "This field is required",
-          })} />
+        <FileInput id="image" accept="image/*" {...register("image")} />
       </FormRow>
 
       <FormRow>
@@ -118,14 +111,10 @@ function CreateCabinForm({cabinToEdit = {}}) {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isCreating}>{isEditSession ? "Edit cabin" : "Create new cabin"}</Button>
+        <Button disabled={isCreating}>Edit cabin</Button>
       </FormRow>
     </Form>
   );
 }
-
-CreateCabinForm.propTypes = {
-  cabinToEdit: PropTypes.any,
-};
 
 export default CreateCabinForm;

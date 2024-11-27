@@ -35,7 +35,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
 
   const { mutate:editCabin, isLoading: isEditing } = useMutation({
     // Mutation function can only accept one argument/element
-    mutationFn: ({newCabinData, id}) => createEditCabin(),
+    mutationFn: ({newCabinData: newCabin, id}) => createEditCabin(newCabin, id),
     onSuccess: () => {
       toast.success("Cabin successfully edited");
       queryClient.invalidateQueries({

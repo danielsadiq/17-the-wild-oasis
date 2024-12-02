@@ -15,6 +15,7 @@ export function useEditSettings() {
         queryKey: ["cabins"],
       });
       //   reset();
+      // today
     },
     onError: (err) => toast.error(err.message),
   });

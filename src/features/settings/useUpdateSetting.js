@@ -14,6 +14,7 @@ export function useUpdateSetting() {
         queryKey: ["settings"],
       });
       //   reset();
+      // today
     },
     onError: (err) => toast.error(err.message),
   });

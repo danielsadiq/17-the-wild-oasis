@@ -15,6 +15,7 @@ export function useUpdateSetting() {
       });
       //   reset();
       // today
+      // todays
       // day 2 of no code
     },
     onError: (err) => toast.error(err.message),
